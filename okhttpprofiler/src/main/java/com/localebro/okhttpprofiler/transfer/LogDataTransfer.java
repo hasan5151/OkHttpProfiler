@@ -106,14 +106,14 @@ public class LogDataTransfer implements DataTransfer {
     }
 
     @SuppressLint("LogNotTimber")
-    private void fastLog(String id, MessageType type, String message) {
+    public void fastLog(String id, MessageType type, String message) {
         String tag = LOG_PREFIX + DELIMITER + id + DELIMITER + type.name;
         if (message != null) {
             Log.v(tag, message);
         }
     }
 
-    private void logWithHandler(String id, MessageType type, String message, int partsCount) {
+    public void logWithHandler(String id, MessageType type, String message, int partsCount) {
         if (mHandler == null) return;
         Message handlerMessage = mHandler.obtainMessage();
         String tag = LOG_PREFIX + DELIMITER + id + DELIMITER + type.name;
@@ -125,7 +125,7 @@ public class LogDataTransfer implements DataTransfer {
         mHandler.sendMessage(handlerMessage);
     }
 
-    private void largeLog(String id, MessageType type, String content) {
+    public void largeLog(String id, MessageType type, String content) {
         final int contentLength = content.length();
         if (content.length() > LOG_LENGTH) {
             final int parts = contentLength / LOG_LENGTH;
@@ -143,7 +143,7 @@ public class LogDataTransfer implements DataTransfer {
     }
 
 
-    private static class LogBodyHandler extends Handler {
+    public static class LogBodyHandler extends Handler {
         private LogBodyHandler(Looper looper) {
             super(looper);
         }
